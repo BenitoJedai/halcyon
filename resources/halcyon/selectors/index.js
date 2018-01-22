@@ -1,35 +1,39 @@
 import { createSelector } from 'reselect';
 import { List as ImmutableList } from 'immutable';
 
-const getAccountBase         = (state, id) => state.getIn(['accounts', id], null);
-const getAccountCounters     = (state, id) => state.getIn(['accounts_counters', id], null);
-const getAccountRelationship = (state, id) => state.getIn(['relationships', id], null);
-const getAccountMoved        = (state, id) => state.getIn(['accounts', state.getIn(['accounts', id, 'moved'])]);
-
 export const makeGetAccount = () => {
-  return createSelector([getAccountBase, getAccountCounters, getAccountRelationship, getAccountMoved], (base, counters, relationship, moved) => {
-    if (base === null) {
-      return null;
-    }
+  return createSelector(
+    [
+      (state, id) => state.getIn(['accounts', id], null),
+      (state, id) => state.getIn(['accounts_counters', id], null),
+      (state, id) => state.getIn(['relationships', id], null),
+      (state, id) => state.getIn(['accounts', state.getIn(['accounts', id, 'moved'])]),
+    ],
 
-    return base.merge(counters).withMutations(map => {
-      map.set('relationship', relationship);
-      map.set('moved', moved);
-    });
-  });
+    (base, counters, relationship, moved) => {
+      if (base === null) {
+        return null;
+      }
+
+      return base.merge(counters).withMutations(map => {
+        map.set('relationship', relationship);
+        map.set('moved', moved);
+      });
+    }
+  );
 };
 
 export const makeGetStatus = () => {
   return createSelector(
     [
-      (state, id) => state.getIn(['statuses', id]),
+      (state, id) => state.getIn(['statuses', id], null),
       (state, id) => state.getIn(['statuses', state.getIn(['statuses', id, 'reblog'])]),
       (state, id) => state.getIn(['accounts', state.getIn(['statuses', id, 'account'])]),
       (state, id) => state.getIn(['accounts', state.getIn(['statuses', state.getIn(['statuses', id, 'reblog']), 'account'])]),
     ],
 
     (statusBase, statusReblog, accountBase, accountReblog) => {
-      if (!statusBase) {
+      if (statusBase === null) {
         return null;
       }
 

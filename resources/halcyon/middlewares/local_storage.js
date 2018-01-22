@@ -9,34 +9,63 @@ import {
   MATCH_ACCOUNTS_DELETE,
 } from '../actions/match_accounts';
 import { makeGetAccount } from '../selectors';
-import { me } from '../initial_state';
 import { INITIAL_STATE_KEY } from '../constants';
 
 function mergeLocalStorage(key, value) {
   const prevData = JSON.parse(localStorage.getItem(key));
   const nextData = Object.assign(prevData, value);
   localStorage.setItem(key, JSON.stringify(nextData));
+
   return nextData;
 }
 
-export default function localStorageMiddleware() {
-  const getAccount = makeGetAccount();
+function normalizeSettings(state) {
+  return mergeLocalStorage(
+    INITIAL_STATE_KEY,
+    { settings: state.get('settings').toJS() }
+  );
+}
 
+function normalizeCredentials(state, action) {
+  const getAccount = makeGetAccount();
+  const accountId  = action.account.id;
+
+  return mergeLocalStorage(
+    INITIAL_STATE_KEY,
+    { accounts: { [accountId] : getAccount(state, accountId).toJS() } }
+  );
+}
+
+function normalizeMatchAccounts(state) {
+  return mergeLocalStorage(
+    INITIAL_STATE_KEY,
+    { match_accounts: state.get('match_accounts').filter((_, key) => key !== 'is_fetching').toJS() }
+  );
+}
+
+function normalizeCustomEmojis(state, action) {
+  return mergeLocalStorage(
+    INITIAL_STATE_KEY,
+    { custom_emojis: action.emojis }
+  );
+}
+
+export default function localStorageMiddleware() {
   return ({ getState }) => next => action => {
     next(action);
 
     if (action.type && !action.skipLocalStorage) {
       switch(action.type) {
       case SETTING_CHANGE:
-        return mergeLocalStorage(INITIAL_STATE_KEY, { settings: getState().get('settings').toJS() });
+        return normalizeSettings(getState());
       case CREDENTIALS_VERIFY_SUCCESS:
       case CREDENTIALS_UPDATE_SUCCESS:
-        return mergeLocalStorage(INITIAL_STATE_KEY, { accounts: { [me] : getAccount(getState(), me).toJS() } });
+        return normalizeCredentials(getState(), action);
       case MATCH_ACCOUNTS_FETCH_SUCCESS:
       case MATCH_ACCOUNTS_DELETE:
-        return mergeLocalStorage(INITIAL_STATE_KEY, { match_accounts: getState().get('match_accounts').filter((_, key) => key !== 'is_fetching').toJS() });
+        return normalizeMatchAccounts(getState());
       case CUSTOM_EMOJIS_FETCH_SUCCESS:
-        return mergeLocalStorage(INITIAL_STATE_KEY, { custom_emojis: action.emojis });
+        return normalizeCustomEmojis(getState(), action);
       }
     }
   };

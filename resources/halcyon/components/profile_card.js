@@ -16,7 +16,6 @@ class ProfileCardCounters extends ImmutablePureComponent {
 
   static propTypes = {
     account: ImmutablePropTypes.map,
-    intl: PropTypes.object.isRequired,
   }
 
   render() {

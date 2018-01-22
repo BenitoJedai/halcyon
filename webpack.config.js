@@ -97,7 +97,7 @@ module.exports = {
 };
 
 if ( isProd ) {
-  module.exports.plugins.push(
+  module.exports.plugins.push([
     new webpack.optimize.UglifyJsPlugin({
       sourceMap: true,
       mangle: true,
@@ -108,5 +108,5 @@ if ( isProd ) {
         comments: false,
       },
     }),
-  );
+  ]);
 }

@@ -7,19 +7,18 @@ export default class IconButton extends React.PureComponent {
     className: PropTypes.string,
     icon: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
-    autoFocus: PropTypes.bool,
+    active: PropTypes.bool,
     onClick: PropTypes.func,
   }
 
   render () {
-    const { className, icon, title, autoFocus, onClick, ...other } = this.props;
+    const { className, icon, title, active, onClick, ...other } = this.props;
 
     return (
       <button
         className={className}
         title={title}
         aria-label={title}
-        autoFocus={autoFocus}
         onClick={onClick}
         {...other}
       >

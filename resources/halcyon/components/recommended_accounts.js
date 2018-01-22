@@ -98,7 +98,7 @@ export default class RecommendedAccounts extends ImmutablePureComponent {
         </header>
 
         {
-          accounts.size && !is_fetching ? (
+          !is_fetching ? (
             <ul className='recommended-accounts__list'>
               { accounts.slice(0, limit).map((account, index) => this.renderItem(account, index)) }
             </ul>

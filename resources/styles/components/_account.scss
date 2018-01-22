@@ -72,26 +72,26 @@
   }
 }
 
-.account-header-counter {
+.account-navigation {
   height: 100%;
   flex-basis: $timeline-width;
   margin-left: $dashboard-width + 12;
 }
 
-.account-header-counter__list {
+.account-navigation__list {
   display: flex;
   flex-direction: row;
   height: 100%;
 }
 
-.account-header-counter__list-item {
+.account-navigation__list-item {
   display: block;
   flex-grow: 0;
   flex-shrink: 0;
   height: 100%;
 }
 
-.account-header-counter__link {
+.account-navigation__link {
   display: block;
   height: 100%;
   padding: 14px 16px 7px;
@@ -107,14 +107,14 @@
   }
 }
 
-.account-header-counter__label {
+.account-navigation__label {
   font-size: 12px;
   font-weight: bold;
   text-align: center;
   margin-bottom: 4px;
 }
 
-.account-header-counter__counter {
+.account-navigation__counter {
   font-size: 18px;
   font-weight: bold;
   text-align: center;

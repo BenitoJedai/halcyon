@@ -25,11 +25,7 @@ export default class Account extends ImmutablePureComponent {
   render () {
     // Create common location object between AccountHeaderContainer and
     // the content instead of props.location
-    const location = {
-      pathname: window.location.pathname,
-      search: window.location.search,
-      hash: window.location.hash,
-    };
+    const location = { ...window.location };
 
     return (
       <Page>

@@ -19,6 +19,8 @@ export default class StatusActionBar extends ImmutablePureComponent {
           <IconButton
             className='status-action-bar__button'
             icon='icon-bubble'
+            size={15}
+            title={'reply to this status'}
           />
         </div>
 
@@ -27,6 +29,8 @@ export default class StatusActionBar extends ImmutablePureComponent {
           <IconButton
             className='status-action-bar__button'
             icon='icon-reblog'
+            size={15}
+            title={'reblog this status'}
           />
         </div>
 
@@ -34,12 +38,16 @@ export default class StatusActionBar extends ImmutablePureComponent {
           <IconButton
             className='status-action-bar__button'
             icon='icon-star'
+            size={15}
+            title={'favourite this status'}
           />
         </div>
 
         <div className='status-action-bar__item'>
           <DropdownMenuContainer
             icon='icon-ellipsis-h'
+            size={15}
+            title={'show more'}
             items={[
               { text: '詳細を表示', href: '#' },
               { text: '埋め込み', href: '#' },

@@ -7,7 +7,7 @@ import ImmutablePureComponent from 'react-immutable-pure-component';
 
 // This component will be rendered in out of the "main" Switch so
 // Pure NavLink is unavailable
-export default class AccountHeaderCounters extends ImmutablePureComponent {
+export default class AccountNavigation extends ImmutablePureComponent {
 
   static propTypes = {
     account: ImmutablePropTypes.map,
@@ -24,40 +24,40 @@ export default class AccountHeaderCounters extends ImmutablePureComponent {
     const id = account.get('id');
 
     return (
-      <div className='account-header-counter'>
-        <ul className='account-header-counter__list'>
+      <div className='account-navigation'>
+        <ul className='account-navigation__list'>
 
-          <li className='account-header-counter__list-item'>
-            <NavLink exact to={`/accounts/${id}`} location={location} className='account-header-counter__link' activeClassName='account-header-counter__link--current'>
-              <div className='account-header-counter__label'>
+          <li className='account-navigation__list-item'>
+            <NavLink exact to={`/accounts/${id}`} location={location} className='account-navigation__link' activeClassName='account-navigation__link--current'>
+              <div className='account-navigation__label'>
                 <FormattedMessage id='account.toots' defaultMessage='Toots' />
               </div>
 
-              <div className='account-header-counter__counter'>
+              <div className='account-navigation__counter'>
                 <FormattedNumber value={account.get('statuses_count')} />
               </div>
             </NavLink>
           </li>
 
-          <li className='account-header-counter__list-item'>
-            <NavLink exact to={`/accounts/${id}/following`} location={location} className='account-header-counter__link' activeClassName='account-header-counter__link--current'>
-              <div className='account-header-counter__label'>
+          <li className='account-navigation__list-item'>
+            <NavLink exact to={`/accounts/${id}/following`} location={location} className='account-navigation__link' activeClassName='account-navigation__link--current'>
+              <div className='account-navigation__label'>
                 <FormattedMessage id='account.following' defaultMessage='Following' />
               </div>
 
-              <div className='account-header-counter__counter'>
+              <div className='account-navigation__counter'>
                 <FormattedNumber value={account.get('following_count')} />
               </div>
             </NavLink>
           </li>
 
-          <li className='account-header-counter__list-item'>
-            <NavLink exact to={`/accounts/${id}/followers`} location={location} className='account-header-counter__link' activeClassName='account-header-counter__link--current'>
-              <div className='account-header-counter__label'>
+          <li className='account-navigation__list-item'>
+            <NavLink exact to={`/accounts/${id}/followers`} location={location} className='account-navigation__link' activeClassName='account-navigation__link--current'>
+              <div className='account-navigation__label'>
                 <FormattedMessage id='account.followers' defaultMessage='Followers' />
               </div>
 
-              <div className='account-header-counter__counter'>
+              <div className='account-navigation__counter'>
                 <FormattedNumber value={account.get('followers_count')} />
               </div>
             </NavLink>

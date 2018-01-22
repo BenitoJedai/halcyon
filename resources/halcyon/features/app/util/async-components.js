@@ -14,10 +14,6 @@ export function CommunityTimeline () {
   return import(/* webpackChunkName: "features/community_timeline" */'../../community_timeline');
 }
 
-export function HashtagTimeline () {
-  return import(/* webpackChunkName: "features/hashtag_timeline" */'../../hashtag_timeline');
-}
-
 export function ListTimeline () {
   return import(/* webpackChunkName: "features/list_timeline" */'../../list_timeline');
 }
@@ -28,6 +24,10 @@ export function Lists () {
 
 export function Account () {
   return import(/* webpackChunkName: "features/account" */'../../account');
+}
+
+export function Search () {
+  return import(/* webpackChunkName: "features/search" */'../../search');
 }
 
 export function Share () {
