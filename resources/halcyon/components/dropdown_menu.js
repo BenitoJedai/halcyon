@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 import Overlay from 'react-overlays/lib/Overlay';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import detectPassiveEvents from 'detect-passive-events';
-import classNames from 'classnames';
 import IconButton from '../components/icon_button';
 
 const listenerOptions = detectPassiveEvents.hasSupport ? { passive: true } : false;
 
-const DropdownMenuCaret = style => {
+export const DropdownMenuCaret = props => {
+  const { style } = props;
+
   return (
     <div className='dropdown-menu__caret' style={style} >
       <div className='dropdown-menu__caret-outer' />
@@ -25,20 +26,14 @@ export class DropdownMenu extends React.PureComponent {
 
   static propTypes = {
     items: PropTypes.array.isRequired,
-    onClose: PropTypes.func.isRequired,
     style: PropTypes.object,
-    direction: PropTypes.oneOf(['right', 'left']),
     placement: PropTypes.oneOf(['top', 'bottom', 'right', 'left']),
-    arrowOffsetLeft: PropTypes.string,
-    arrowOffsetTop: PropTypes.string,
+    onClose: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
     style: {},
-    direction: 'right',
     placement: 'bottom',
-    arrowOffsetLeft: 'auto',
-    arrowOffsetTop: 'auto',
   };
 
   handleDocumentClick = e => {
@@ -93,11 +88,11 @@ export class DropdownMenu extends React.PureComponent {
   }
 
   render () {
-    const { items, style, direction, arrowOffsetLeft, arrowOffsetTop } = this.props;
+    const { items, style, placement } = this.props;
 
     return (
-      <div className={classNames('dropdown-menu', { 'dropdown-menu--right': direction === 'right', 'dorpdown-menu--left': direction === 'left' })} style={style} ref={this.setRef}>
-        <DropdownMenuCaret style={{ top: arrowOffsetTop, left: arrowOffsetLeft }} />
+      <div className='dropdown-menu' style={style} ref={this.setRef}>
+        <DropdownMenuCaret placement={placement} />
 
         <ul className='dropdown-menu__list'>
           {items.map((option, i) => this.renderItem(option, i))}

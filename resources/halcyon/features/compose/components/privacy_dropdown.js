@@ -4,6 +4,7 @@ import Overlay from 'react-overlays/lib/Overlay';
 import { injectIntl, defineMessages } from 'react-intl';
 import detectPassiveEvents from 'detect-passive-events';
 import classNames from 'classnames';
+import { DropdownMenuCaret } from '../../../components/dropdown_menu';
 
 const messages = defineMessages({
   change: { id: 'privacy.change', defaultMessage: 'Adjust status privacy' },
@@ -19,7 +20,7 @@ const messages = defineMessages({
 
 const listenerOptions = detectPassiveEvents.hasSupport ? { passive: true } : false;
 
-class PrivacyDropdownMenu extends React.PureComponent {
+export class PrivacyDropdownMenu extends React.PureComponent {
 
   static propTypes = {
     style: PropTypes.object,
@@ -28,6 +29,10 @@ class PrivacyDropdownMenu extends React.PureComponent {
     onClose: PropTypes.func.isRequired,
     onChange: PropTypes.func.isRequired,
   };
+
+  static defaultProps = {
+    style: {},
+  }
 
   handleDocumentClick = e => {
     if (this.node && !this.node.contains(e.target)) {
@@ -63,21 +68,18 @@ class PrivacyDropdownMenu extends React.PureComponent {
   }
 
   render() {
-    const { items, value } = this.props;
+    const { items, value, style } = this.props;
 
-    return(
-      <div className='privacy-dropdown-menu'>
-        <div className='privacy-dropdown-menu__caret' >
-          <div className='privacy-dropdown-menu__caret-outer' />
-          <div className='privacy-dropdown-menu__caret-inner' />
-        </div>
+    return (
+      <div className='privacy-dropdown-menu' style={style}>
+        <DropdownMenuCaret />
 
         <div className='privacy-dropdown-menu__options-wrapper' ref={this.setRef}>
           { items.map(item => (
             <a key={item.value} data-index={item.value} onClick={this.handleClick} className={classNames('privacy-dropdown-menu__option', { 'privacy-dropdown-menu__option--active': item.value === value })} >
 
               <div className='privacy-dropdown-menu__icon'>
-                <i className={`${item.iconClassName} `} aria-hidden='true' />
+                <i className={item.iconClassName} aria-hidden='true' />
               </div>
 
               <div className='privacy-dropdown-menu__content'>
@@ -98,13 +100,13 @@ class PrivacyDropdownMenu extends React.PureComponent {
 export default class PrivacyDropdown extends React.PureComponent {
 
   static propTypes = {
+    intl: PropTypes.object.isRequired,
+    value: PropTypes.string.isRequired,
     isUserTouching: PropTypes.func,
     isModalOpen: PropTypes.bool.isRequired,
     onModalOpen: PropTypes.func,
     onModalClose: PropTypes.func,
-    value: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
-    intl: PropTypes.object.isRequired,
   }
 
   state = {
@@ -140,6 +142,14 @@ export default class PrivacyDropdown extends React.PureComponent {
         iconClassName: 'icon-envelope',
       },
     ];
+  }
+
+  setTargetRef = c => {
+    this.target = c;
+  }
+
+  findTarget = () => {
+    return this.target;
   }
 
   handleToggle = () => {
@@ -188,7 +198,7 @@ export default class PrivacyDropdown extends React.PureComponent {
   render () {
     const { value }   = this.props;
     const { open }    = this.state;
-    const valueOption = this.options.find(item => item.value === value);
+    const enabledOption = this.options.find(item => item.value === value);
 
     return (
       <div className={classNames('privacy-dropdown', { 'privacy-dropdown--active': open })} onKeyDown={this.handleKeyDown}>
@@ -196,12 +206,13 @@ export default class PrivacyDropdown extends React.PureComponent {
           <button
             className='compose-form__button-icon'
             onClick={this.handleToggle}
+            ref={this.setTargetRef}
           >
-            <i className={`${valueOption.iconClassName} `} aria-hidden='true' />
+            <i className={`${enabledOption.iconClassName} `} aria-hidden='true' />
           </button>
         </div>
 
-        <Overlay show={open} placement='bottom' target={this} container={this}>
+        <Overlay show={open} placement='bottom' target={this.findTarget}>
           <PrivacyDropdownMenu
             items={this.options}
             value={value}
