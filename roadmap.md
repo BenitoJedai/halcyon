@@ -1,0 +1,4 @@
+- [ ] Lighter timeline with intersection observer
+- [ ] Desktop notification
+- [ ] Customizable navigation bar
+- [ ] Separate locales into each file and load them only demanded
