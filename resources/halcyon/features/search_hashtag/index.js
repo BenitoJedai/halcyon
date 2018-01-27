@@ -4,13 +4,8 @@ import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import { refreshHashtagTimeline, expandHashtagTimeline } from '../../actions/timelines';
-import { me } from '../../initial_state';
 
-import Page from '../app/components/page';
-import Content from '../app/components/content';
-import Dashborad from '../app/components/dashboard';
-import ProfileCard from '../../containers/profile_card_container';
-
+import Dashboard from '../app/components/dashboard';
 import Timeline from '../../components/timeline';
 import StatusListContainer from '../../containers/status_list_container';
 
@@ -23,26 +18,23 @@ export default class HashtagTimeline extends React.Component {
   }
 
   componentWillMount () {
-    this.props.dispatch(refreshHashtagTimeline(this.props.params.id));
+    this.props.dispatch(refreshHashtagTimeline(this.props.match.params.id));
   }
 
   render() {
-    const { id } = this.props.params;
+    const { id } = this.props.match.params;
 
     return (
-      <Page>
-        <Content>
-          <Dashborad position='left'>
-            <ProfileCard accountId={me} withCounters />
-          </Dashborad>
+      <div>
+        <Timeline>
+          <StatusListContainer
+            timelineId={`hashtag:${id}`}
+            emptyMessage="There's nothing in this hashtag yet"
+          />
+        </Timeline>
 
-          <Timeline>
-            <StatusListContainer timelineId={`hashtag:${id}`} />
-          </Timeline>
-
-          <Dashborad position='right' />
-        </Content>
-      </Page>
+        <Dashboard position='right' />
+      </div>
     );
   }
 
