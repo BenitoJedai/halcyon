@@ -15,21 +15,15 @@ export function changeSearch(value) {
   };
 };
 
-export function clearSearch() {
-  return {
-    type: SEARCH_CLEAR,
-  };
-};
-
 export function submitSearch() {
   return (dispatch, getState) => {
     const value = getState().getIn(['search', 'value']);
 
-    if (value.length === 0) {
+    if (value.length === 0 ) {
       return;
     }
 
-    dispatch(fetchSearchRequest());
+    dispatch(fetchSearchRequest(value));
 
     api(getState).get('/api/v1/search', {
       params: {
@@ -42,11 +36,18 @@ export function submitSearch() {
       dispatch(fetchSearchFail(error));
     });
   };
+}
+
+export function clearSearch() {
+  return {
+    type: SEARCH_CLEAR,
+  };
 };
 
-export function fetchSearchRequest() {
+export function fetchSearchRequest(value) {
   return {
     type: SEARCH_FETCH_REQUEST,
+    value,
   };
 };
 

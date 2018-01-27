@@ -1,7 +1,21 @@
-.toot-button {
-  width: 100%;
+button.toot-button {
   height: 100%;
+  padding: 6px 18px;
+  border-radius: 25px;
+  overflow: hidden;
+  box-sizing: border-box;
   color: $white;
+  background-color: $highlight-color;
+
+  &:hover, &:active {
+    background-color: darken($highlight-color, 5%);
+  }
+}
+
+.toot-button__label {
+  color: $white;
+  font-size: 14px;
+  font-weight: 700;
 }
 
 .toot-button__icon {

@@ -1,13 +1,21 @@
 import { SETTING_CHANGE } from '../actions/settings';
+
 import {
   CREDENTIALS_VERIFY_SUCCESS,
   CREDENTIALS_UPDATE_SUCCESS,
 } from '../actions/credentials';
+
 import { CUSTOM_EMOJIS_FETCH_SUCCESS } from '../actions/custom_emojis';
+
 import {
   MATCH_ACCOUNTS_FETCH_SUCCESS,
   MATCH_ACCOUNTS_DELETE,
 } from '../actions/match_accounts';
+
+import {
+  SEARCH_FETCH_REQUEST,
+} from '../actions/search';
+
 import { makeGetAccount } from '../selectors';
 import { INITIAL_STATE_KEY } from '../constants';
 
@@ -43,6 +51,13 @@ function normalizeMatchAccounts(state) {
   );
 }
 
+function normalizeSearch(state) {
+  return mergeLocalStorage(
+    INITIAL_STATE_KEY,
+    { search: { recent_searches: state.getIn(['search', 'recent_searches']).toJS(), saved_searches: state.getIn(['search', 'saved_searches']).toJS() } }
+  );
+}
+
 function normalizeCustomEmojis(state, action) {
   return mergeLocalStorage(
     INITIAL_STATE_KEY,
@@ -64,6 +79,8 @@ export default function localStorageMiddleware() {
       case MATCH_ACCOUNTS_FETCH_SUCCESS:
       case MATCH_ACCOUNTS_DELETE:
         return normalizeMatchAccounts(getState());
+      case SEARCH_FETCH_REQUEST:
+        return normalizeSearch(getState());
       case CUSTOM_EMOJIS_FETCH_SUCCESS:
         return normalizeCustomEmojis(getState(), action);
       }
