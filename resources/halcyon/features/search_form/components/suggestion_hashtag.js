@@ -13,7 +13,7 @@ export default class SuggestionHashtag extends React.PureComponent {
 
     return (
       <li className='suggestion-hashtag search-form-suggestion-item'>
-        <Link to={`/search/hashtag/${hashtag}`}>
+        <Link to={`/timelines/tag/${hashtag}`}>
           #{ hashtag }
         </Link>
       </li>

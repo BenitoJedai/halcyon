@@ -16,9 +16,9 @@ import {
   CommunityTimeline,
   PublicTimeline,
   ListTimeline,
+  HashtagTimeline,
   Lists,
   Account,
-  Search,
   Share,
   Login,
   NotFound,
@@ -107,9 +107,9 @@ export default class App extends React.Component {
             <WrappedRoute path='/timelines/home' component={HomeTimeline} />
             <WrappedRoute path='/timelines/public' component={PublicTimeline} />
             <WrappedRoute path='/timelines/public/local' component={CommunityTimeline} />
+            <WrappedRoute path='/timelines/tag/:id' component={HashtagTimeline} />
             <WrappedRoute path='/timelines/list/:id' component={ListTimeline} />
 
-            <WrappedRoute path='/search' component={Search} />
             <WrappedRoute path='/accounts/:accountId' component={Account} />
 
             {/* <WrappedRoute exact path='/notifications' component={Notificaitons} />
