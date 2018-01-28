@@ -51,8 +51,8 @@ export default class KeyboradShortcutsModal extends React.PureComponent {
       {
         group: formatMessage(messages.navigation),
         keymap: [
-          { keys: ['up'], label: formatMessage(messages.up) },
-          { keys: ['down'], label: formatMessage(messages.down) },
+          { keys: ['↑'], label: formatMessage(messages.up) },
+          { keys: ['↓'], label: formatMessage(messages.down) },
           { keys: ['space'], label: formatMessage(messages.scroll) },
           { keys: ['.'], label: formatMessage(messages.load) },
           { keys: ['?'], label: formatMessage(messages.menu) },
