@@ -145,7 +145,7 @@ export default class UserDropdown extends ImmutablePureComponent {
     ];
 
     return (
-      <div className='user-navigation__user-dropdown-menu'>
+      <div className='user-dropdown-menu'>
         <button ref={this.setTargetRef} onClick={this.handleClick}>
           <Avatar account={account} size={32} />
         </button>

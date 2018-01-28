@@ -10,7 +10,7 @@ import {
   expandFollowers,
 } from '../../actions/accounts';
 
-import ProfileCard from '../../containers/profile_card_container';
+import AccountsList from '../../components/accounts_list';
 import LoadingIndicator from '../../components/loading_indicator';
 
 const mapStateToProps = (state, props) => ({
@@ -60,11 +60,15 @@ export default class AccountFollowers extends ImmutablePureComponent {
   render() {
     const { accountIds, hasMore = true } = this.props;
 
+    if (!accountIds) {
+      return <LoadingIndicator />;
+    }
+
     return (
-      <div className='accounts-list'>
-        { accountIds && accountIds.map(id => <ProfileCard key={id} accountId={id} withNote withFollowButton />)}
-        { (!accountIds || hasMore) && <LoadingIndicator /> }
-      </div>
+      <AccountsList
+        accountIds={accountIds}
+        hasMore={hasMore} // 使うか未定
+      />
     );
   }
 

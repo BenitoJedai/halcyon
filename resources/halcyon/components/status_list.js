@@ -10,13 +10,20 @@ export default class StatusList extends ImmutablePureComponent {
 
   static propTypes = {
     statusIds: ImmutablePropTypes.list.isRequired,
+    hasMore: PropTypes.bool.isRequired,
+    isLoading: PropTypes.bool.isRequired,
+    emptyMessage: PropTypes.node,
   }
 
   render () {
-    const { statusIds } = this.props;
+    const {
+      statusIds,
+      isLoading,
+      emptyMessage,
+    } = this.props;
 
-    if (!statusIds.size) {
-      return <LoadingIndicator />;
+    if ( !isLoading && !statusIds.size ) {
+      return <div className='empty-message'>{ emptyMessage }</div>;
     }
 
     return (

@@ -42,14 +42,19 @@ export default class Statuses extends ImmutablePureComponent {
   }
 
   render () {
-    const { statusIds } = this.props;
+    const { statusIds, hasMore } = this.props;
 
     return (
       <Timeline>
         <TimelineHeader id={this.props.match.params.accountId} />
 
         {
-          statusIds.size ? <StatusList statusIds={statusIds} /> : <LoadingIndicator />
+          statusIds.size ? (
+            <StatusList
+              statusIds={statusIds}
+              hasMore={hasMore}
+            />
+          ) : <LoadingIndicator />
         }
       </Timeline>
     );

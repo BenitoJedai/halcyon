@@ -27,28 +27,28 @@ export default class PageNavigation extends React.Component {
           <li className='page-navigation__list-item'>
             <NavLink exact to='/timelines/home' className='page-navigation__link' activeClassName='page-navigation__link--current'>
               <i className={`page-navigation__icon ${ pathname === '/timelines/home' ? 'icon-home-bold' : 'icon-home' }`} />
-              <FormattedMessage id='page_navigation.home' defaultMessage='Home' />
+              <span className='page-navigation__label'><FormattedMessage id='page_navigation.home' defaultMessage='Home' /></span>
             </NavLink>
           </li>
 
           <li className='page-navigation__list-item'>
             <NavLink exact to='/timelines/public/local' className='page-navigation__link' activeClassName='page-navigation__link--current'>
               <i className={`page-navigation__icon ${ pathname === '/timelines/public/local' ? 'icon-people-bold' : 'icon-people' }`} />
-              <FormattedMessage id='page_navigation.local' defaultMessage='Local' />
+              <span className='page-navigation__label'><FormattedMessage id='page_navigation.local' defaultMessage='Local' /></span>
             </NavLink>
           </li>
 
           <li className='page-navigation__list-item'>
             <NavLink exact to='/timelines/public' className='page-navigation__link' activeClassName='page-navigation__link--current'>
               <i className={`page-navigation__icon ${ pathname === '/timelines/public' ? 'icon-globe-bold' : 'icon-globe' }`} />
-              <FormattedMessage id='page_navigation.federated' defaultMessage='Federated' />
+              <span className='page-navigation__label'><FormattedMessage id='page_navigation.federated' defaultMessage='Federated' /></span>
             </NavLink>
           </li>
 
           <li className='page-navigation__list-item'>
             <NavLink exact to='/notifications' className='page-navigation__link' activeClassName='page-navigation__link--current'>
               <i className={`page-navigation__icon ${ pathname === '/notifications' ? 'icon-bell-bold' : 'icon-bell' }`} />
-              <FormattedMessage id='page_navigation.notifications' defaultMessage='Notifications' />
+              <span className='page-navigation__label'><FormattedMessage id='page_navigation.notifications' defaultMessage='Notifications' /></span>
             </NavLink>
           </li>
         </ul>

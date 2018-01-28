@@ -47,10 +47,7 @@ export default class StatusesWithReplies extends ImmutablePureComponent {
     return (
       <Timeline>
         <TimelineHeader id={this.props.match.params.accountId} />
-
-        {
-          statusIds.size ? <StatusList statusIds={statusIds} /> : <LoadingIndicator />
-        }
+        { statusIds.size ? <StatusList statusIds={statusIds} /> : <LoadingIndicator /> }
       </Timeline>
     );
   }
