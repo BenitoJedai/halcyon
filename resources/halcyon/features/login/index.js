@@ -95,7 +95,7 @@ export default class Login extends ImmutablePureComponent {
         <Content>
           <form onSubmit={this.handleSubmit} >
             <input type='text' className='default-css' ref={this.setRef} />
-            <input type='submit' className='generic-button' disabled={isVerifyingInstance} />
+            <input type='submit' className='round-button' disabled={isVerifyingInstance} />
           </form>
         </Content>
       </Page>

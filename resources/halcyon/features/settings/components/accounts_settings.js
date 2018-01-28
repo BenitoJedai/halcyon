@@ -41,7 +41,7 @@ export default class AccountsSettings extends React.PureComponent {
           </div>
 
           <div>
-            <button className='generic-button' onClick={this.handleProtocolHandlerEnable}>
+            <button className='round-button' onClick={this.handleProtocolHandlerEnable}>
               web+mastodon
             </button>
           </div>
