@@ -8,8 +8,8 @@ const getSetting = (prop) => initialState && initialState.settings && initialSta
 export const unfollowModal = getSetting('unfollowModal');
 export const boostModal    = getSetting('boostModal');
 export const deleteModal   = getSetting('deleteModal');
-export const reduceMotion  = getSetting('autoPlayGif');
-export const autoPlayGif   = getSetting('reduceMotion');
+export const autoPlayGif   = getSetting('autoPlayGif');
+export const reduceMotion  = getSetting('reduceMotion');
 
 export const domain        = getMeta('domain');
 export const me            = getMeta('me');
