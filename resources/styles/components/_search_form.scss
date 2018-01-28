@@ -24,9 +24,13 @@ button.search-form__button {
   font-size: 14px;
 }
 
-.search-form-suggestion {
+.search-form-suggestions {
   width: 300px;
   font-size: 14px;
+}
+
+.search-form-suggestion {
+  margin: 8px auto;
 }
 
 .search-form-suggestion__title {
@@ -38,6 +42,19 @@ button.search-form__button {
 
 .search-form-suggestion__sep {
   border-bottom: 1px solid $background-color;
+
+  &:first-child,
+  &:last-child {
+    display: none;
+  }
+}
+
+.search-form-suggestion__empty {
+  display: flex;
+  align-items: center;
+  padding: 4px 10px;
+  height: 32px;
+  color: $text-color-gray;
 }
 
 .search-form-suggestion-item a {
@@ -52,13 +69,6 @@ button.search-form__button {
     color: $highlight-color;
     background-color: $secondary-color;
   }
-}
-
-.suggestion-hashtags,
-.suggestion-accounts,
-.suggestion-recent-searches,
-.suggestion-saved-searches {
-  margin: 8px auto;
 }
 
 .suggestion-account .account__avatar {

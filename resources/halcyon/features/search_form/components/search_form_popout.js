@@ -41,58 +41,78 @@ export default class SearchFromPopout extends React.PureComponent {
 
         {
           submitted ? (
-            <div className='search-form-suggestion'>
-              <ul className='suggestion-hashtags'>
-                {
-                  hashtags.size ? (
-                    hashtags.map(hashtag => <SuggestionHashtag hashtag={hashtag} key={hashtag} />)
-                  ) : (
-                    <FormattedMessage id='search_form.no_results' defaultMessage='There are no results' />
-                  )
-                }
-              </ul>
+            <div className='search-form-suggestions'>
+              {
+                hashtags.size > 0 && (
+                  <div className='search-form-suggestion'>
+                    <ul className='suggestion-hashtags'>
+                      { hashtags.map(hashtag => <SuggestionHashtag hashtag={hashtag} key={hashtag} />) }
+                    </ul>
+                  </div>
+                )
+              }
 
               <div className='search-form-suggestion__sep' aria-hidden='true' />
 
-              <ul className='suggestion-accounts'>
-                {
-                  accounts.size ? (
-                    accounts.map(account => <SuggestionAccount accountId={account} key={account} />)
-                  ) : (
-                    <FormattedMessage id='search_form.no_results' defaultMessage='There are no results' />
-                  )
-                }
-              </ul>
+              {
+                accounts.size > 0 && (
+                  <div className='search-form-suggestion'>
+                    <ul className='suggestion-accounts'>
+                      { accounts.map(account => <SuggestionAccount accountId={account} key={account} />) }
+                    </ul>
+                  </div>
+                )
+              }
+
+              {
+                hashtags.size === 0 && accounts.size === 0 && (
+                  <div className='search-form-suggestion'>
+                    <div className='search-form-suggestion__empty'>
+                      <FormattedMessage id='search_form.no_results' defaultMessage='There are no results' />
+                    </div>
+                  </div>
+                )
+              }
             </div>
           ) : (
-            <div className='search-form-suggestion'>
-              <ul className='suggestion-recent-searches'>
+            <div className='search-form-suggestions'>
+              <div className='search-form-suggestion'>
                 <h3 className='search-form-suggestion__title'>
                   <FormattedMessage id='search_form.history' defaultMessage='Recent searches' />
                 </h3>
+
                 {
-                  recentSearches.size ? (
-                    recentSearches.map(recentSearch => <SuggestionRecentSearch recentSearch={recentSearch} key={recentSearch} />)
+                  recentSearches.size > 0 ? (
+                    <ul className='suggestion-recent-searches'>
+                      { recentSearches.map(recentSearch => <SuggestionRecentSearch recentSearch={recentSearch} key={recentSearch} />) }
+                    </ul>
                   ) : (
-                    <FormattedMessage id='search_form.history.empty' defaultMessage='Recent searches' />
+                    <div className='search-form-suggestion__empty'>
+                      <FormattedMessage id='search_form.history.empty' defaultMessage='Recent searches' />
+                    </div>
                   )
                 }
-              </ul>
+              </div>
 
               <div className='search-form-suggestion__sep' aria-hidden='true' />
 
-              <ul className='suggestion-saved-searches'>
+              <div className='search-form-suggestion'>
                 <h3 className='search-form-suggestion__title'>
                   <FormattedMessage id='search_form.saved_keywords' defaultMessage='Saved seraches' />
                 </h3>
+
                 {
-                  savedSearches.size ? (
-                    savedSearches.map(savedSearch => <SuggestionSavedSearch savedSearch={savedSearch} key={savedSearch} />)
+                  savedSearches.size > 0 ? (
+                    <ul className='suggestion-saved-searches'>
+                      { savedSearches.map(savedSearch => <SuggestionSavedSearch savedSearch={savedSearch} key={savedSearch} />) }
+                    </ul>
                   ) : (
-                    <FormattedMessage id='search_form.saved_keywords.empty' defaultMessage='Saved seraches' />
+                    <div className='search-form-suggestion__empty'>
+                      <FormattedMessage id='search_form.saved_keywords.empty' defaultMessage='Saved seraches' />
+                    </div>
                   )
                 }
-              </ul>
+              </div>
             </div>
           )
         }

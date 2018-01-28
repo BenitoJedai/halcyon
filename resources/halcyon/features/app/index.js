@@ -30,7 +30,7 @@ import ModalContaienr from '../app/containers/modal_contaienr';
 
 const keyMap = {
   new: 'n',
-  back: 'backspace',
+  search: '/',
 };
 
 const mapDispatchToProps = dispatch => ({
@@ -64,6 +64,25 @@ export default class App extends React.Component {
     this.props.onUpdateState();
   }
 
+  componentDidMount () {
+    this.hotkeys.__mousetrap__.stopCallback = (e, element) => {
+      return ['TEXTAREA', 'SELECT', 'INPUT'].includes(element.tagName);
+    };
+  }
+
+  setRef = c => {
+    this.node = c;
+  }
+
+  setHotkeysRef = c => {
+    this.hotkeys = c;
+  }
+
+  handleHotkeyFocuSearchForm = e => {
+    e.preventDefault();
+    this.node.querySelector('#search-form-input').focus();
+  }
+
   handleHotkeyOpenComposeFormModal = e => {
     e.preventDefault();
     this.props.onOpenModal('COMPOSE_FORM', {});
@@ -73,11 +92,12 @@ export default class App extends React.Component {
 
     const handlers = {
       new: this.handleHotkeyOpenComposeFormModal,
+      search: this.handleHotkeyFocuSearchForm,
     };
 
     return (
-      <HotKeys keyMap={keyMap} handlers={handlers} >
-        <div className='app'>
+      <HotKeys keyMap={keyMap} handlers={handlers} ref={this.setHotkeysRef} >
+        <div className='app' ref={this.setRef}>
           <Topbar />
           <MessageContainer />
 
@@ -89,7 +109,7 @@ export default class App extends React.Component {
             <WrappedRoute path='/timelines/public/local' component={CommunityTimeline} />
             <WrappedRoute path='/timelines/list/:id' component={ListTimeline} />
 
-            <WrappedRoute path='/search/:type/:id' component={Search} />
+            <WrappedRoute path='/search' component={Search} />
             <WrappedRoute path='/accounts/:accountId' component={Account} />
 
             {/* <WrappedRoute exact path='/notifications' component={Notificaitons} />
